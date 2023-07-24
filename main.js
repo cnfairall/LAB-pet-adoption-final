@@ -243,9 +243,9 @@ const pets = [
 
 // query selectors //
 const filterBtn = document.querySelector("#filter-buttons");
-const showFormBtn = document.querySelector("#show-form-button");
 const form = document.querySelector("form");
 const formContainer = document.querySelector("#form-container");
+const showFormBtn = document.querySelector("#show-form-button"); 
 
 // functions //
 
@@ -272,6 +272,8 @@ for (const pet of array) {
   
 renderToDom("#app", domString);
 };
+
+cardsOnDom(pets);
 
 const filterAnimalByType = (type) => {
 const filteredPets = pets.filter((pet) => pet.type === type)
@@ -308,6 +310,31 @@ const showForm = () => {
   renderToDom("#form-container", domString);
 };
 
+filterBtn.addEventListener('click', (e) => {
+  switch (e.target.id) {
+  case "cats":
+    filterAnimalByType("cat");
+  break;
+  case "dogs":
+    filterAnimalByType("dog");
+  break;
+  case "dinos":
+    filterAnimalByType("dino");
+  break;
+  default:  
+    cardsOnDom(pets);
+  break;
+  }
+  })
+
+ 
+showFormBtn.addEventListener('click', () => {
+showForm()
+})
+
+form.addEventListener("submit", createPet);
+
+
 const createPet = (e) => {
   e.preventDefault();
   
@@ -325,8 +352,8 @@ const createPet = (e) => {
   form.reset();
   };
 
-const eventListeners = () => {
-  filterBtn.addEventListener('click', (e) => {
+
+filterBtn.addEventListener('click', (e) => {
     switch (e.target.id) {
     case "cats":
       filterAnimalByType("cat");
@@ -342,19 +369,3 @@ const eventListeners = () => {
     break;
     }
     })
-
-   
-    showFormBtn.addEventListener('click', () => {
-    showForm()
-  })
-
-  form.addEventListener("submit", createPet);
-
-}
-
-const startApp = () => {
-  cardsOnDom(pets);
-  eventListeners();
-};
-
-startApp();
