@@ -246,7 +246,6 @@ const filterBtn = document.querySelector("#filter-buttons");
 const form = document.querySelector("form");
 const formContainer = document.querySelector("#form-container");
 const showFormBtn = document.querySelector("#show-form-button"); 
-const submitBtn = document.querySelector("#form-submit")
 
 // functions //
 
@@ -352,7 +351,7 @@ showFormBtn.addEventListener('click', () => {
 showForm()
 })
     
-submitBtn.addEventListener('click', createPet)
+form.addEventListener('submit', createPet)
 }
 
 const startApp = () => {
