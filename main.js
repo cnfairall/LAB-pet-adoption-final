@@ -246,6 +246,7 @@ const filterBtn = document.querySelector("#filter-buttons");
 const form = document.querySelector("form");
 const formContainer = document.querySelector("#form-container");
 const showFormBtn = document.querySelector("#show-form-button"); 
+const submitBtn = document.querySelector("#form-submit")
 
 // functions //
 
@@ -284,7 +285,9 @@ cardsOnDom(filteredPets);
 const showForm = () => {
   let domString = "";
   domString +=
-  `<div class="mb-3">
+  `
+  <form>
+  <div class="mb-3">
     <label for="name" class="form-label">Name</label>
     <input type="text" class="form-control" id="name">
   </div>
@@ -297,63 +300,38 @@ const showForm = () => {
     <input type="text" class="form-control" id="color">
   </div>
   <div class="mb-3">
-    <label for="description" class="form-label">Description</label>
-    <input type="text" class="form-control" id="description">
+    <label for="description" class="form-label">Special Skill</label>
+    <input type="text" class="form-control" id="specialSkill">
   </div>
   <div class="mb-3">
     <label for="imageUrl" class="form-label">Upload Image</label>
     <input type="url" class="form-control" id="imageUrl">
   </div>
   <button type="submit" class="btn btn-success" id="form-submit">Submit</button>
+  </form>
   `
 
   renderToDom("#form-container", domString);
 };
 
-filterBtn.addEventListener('click', (e) => {
-  switch (e.target.id) {
-  case "cats":
-    filterAnimalByType("cat");
-  break;
-  case "dogs":
-    filterAnimalByType("dog");
-  break;
-  case "dinos":
-    filterAnimalByType("dino");
-  break;
-  default:  
-    cardsOnDom(pets);
-  break;
-  }
-  })
-
- 
-showFormBtn.addEventListener('click', () => {
-showForm()
-})
-
-form.addEventListener("submit", createPet);
-
-
 const createPet = (e) => {
   e.preventDefault();
-  
   const newPetObj = {
     id: pets.length + 1,
     name: document.querySelector("#name").value,
     color: document.querySelector("#color").value,
     specialSkill: document.querySelector("#specialSkill").value,
     type: document.querySelector("#type").value,
-    imageUrl: document.querySelector("#imageUrl").value
+    imageUrl: document.querySelector("#imageUrl").value,
   }
-
   pets.push(newPetObj);
   cardsOnDom(pets);
   form.reset();
   };
 
+  const eventListeners = () => {
 
-filterBtn.addEventListener('click', (e) => {
+  filterBtn.addEventListener('click', (e) => {
     switch (e.target.id) {
     case "cats":
       filterAnimalByType("cat");
@@ -367,5 +345,19 @@ filterBtn.addEventListener('click', (e) => {
     default:  
       cardsOnDom(pets);
     break;
-    }
-    })
+      }
+      });
+     
+showFormBtn.addEventListener('click', () => {
+showForm()
+})
+    
+submitBtn.addEventListener('click', createPet)
+}
+
+const startApp = () => {
+  cardsOnDom(pets);
+  eventListeners();
+};
+
+startApp();
