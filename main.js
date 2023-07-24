@@ -245,7 +245,8 @@ const pets = [
 const filterBtn = document.querySelector("#filter-buttons");
 const form = document.querySelector("form");
 const formContainer = document.querySelector("#form-container");
-const showFormBtn = document.querySelector("#show-form-button"); 
+const showFormBtn = document.querySelector("#show-form-button");
+const closeBtn = document.querySelector("#close")
 
 // functions //
 
@@ -307,6 +308,7 @@ const showForm = () => {
     <input type="url" class="form-control" id="imageUrl">
   </div>
   <button type="submit" class="btn btn-success" id="form-submit">Submit</button>
+ 
   </form>
   `
 
@@ -327,6 +329,11 @@ const createPet = (e) => {
   cardsOnDom(pets);
   form.reset();
   };
+
+  const closeForm = () => {
+    let domString = "";
+    renderToDom("#form-container", domString);
+  }
 
   const eventListeners = () => {
 
@@ -352,7 +359,11 @@ showForm()
 })
     
 form.addEventListener('submit', createPet)
-}
+
+closeBtn.addEventListener("click", () => {
+  closeForm()
+})
+  }
 
 const startApp = () => {
   cardsOnDom(pets);
