@@ -241,6 +241,13 @@ const pets = [
   }
 ];
 
+// query selectors //
+const filterBtn = document.querySelector("#filter-buttons");
+const form = document.querySelector("form");
+const formContainer = document.querySelector("#form-container");
+const showFormBtn = document.querySelector("#show-form-button"); 
+
+// functions //
 
 const renderToDom = (divId, htmlToRender) => {
 const selectedDiv = document.querySelector(divId);
@@ -266,28 +273,99 @@ for (const pet of array) {
 renderToDom("#app", domString);
 };
 
-cardsOnDom(pets)
-
-const button = document.querySelector("#buttons");
+cardsOnDom(pets);
 
 const filterAnimalByType = (type) => {
 const filteredPets = pets.filter((pet) => pet.type === type)
 cardsOnDom(filteredPets);
-}
+};
 
-button.addEventListener('click', (e) => {
-switch (e.target.id) {
-case "cats":
-  filterAnimalByType("cat");
-break;
-case "dogs":
-  filterAnimalByType("dog");
-break;
-case "dinos":
-  filterAnimalByType("dino");
-break;
-default:  
+
+const showForm = () => {
+  let domString = "";
+  domString +=
+  `<div class="mb-3">
+    <label for="name" class="form-label">Name</label>
+    <input type="text" class="form-control" id="name">
+  </div>
+  <div class="mb-3">
+    <label for="type" class="form-label">Species</label>
+    <input type="text" class="form-control" id="type">
+  </div>
+  <div class="mb-3">
+    <label for="color" class="form-label">Color</label>
+    <input type="text" class="form-control" id="color">
+  </div>
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <input type="text" class="form-control" id="description">
+  </div>
+  <div class="mb-3">
+    <label for="imageUrl" class="form-label">Upload Image</label>
+    <input type="url" class="form-control" id="imageUrl">
+  </div>
+  <button type="submit" class="btn btn-success" id="form-submit">Submit</button>
+  `
+
+  renderToDom("#form-container", domString);
+};
+
+filterBtn.addEventListener('click', (e) => {
+  switch (e.target.id) {
+  case "cats":
+    filterAnimalByType("cat");
+  break;
+  case "dogs":
+    filterAnimalByType("dog");
+  break;
+  case "dinos":
+    filterAnimalByType("dino");
+  break;
+  default:  
+    cardsOnDom(pets);
+  break;
+  }
+  })
+
+ 
+showFormBtn.addEventListener('click', () => {
+showForm()
+})
+
+form.addEventListener("submit", createPet);
+
+
+const createPet = (e) => {
+  e.preventDefault();
+  
+  const newPetObj = {
+    id: pets.length + 1,
+    name: document.querySelector("#name").value,
+    color: document.querySelector("#color").value,
+    specialSkill: document.querySelector("#specialSkill").value,
+    type: document.querySelector("#type").value,
+    imageUrl: document.querySelector("#imageUrl").value
+  }
+
+  pets.push(newPetObj);
   cardsOnDom(pets);
-break;
-}
-});
+  form.reset();
+  };
+
+
+filterBtn.addEventListener('click', (e) => {
+    switch (e.target.id) {
+    case "cats":
+      filterAnimalByType("cat");
+    break;
+    case "dogs":
+      filterAnimalByType("dog");
+    break;
+    case "dinos":
+      filterAnimalByType("dino");
+    break;
+    default:  
+      cardsOnDom(pets);
+    break;
+    }
+    })
