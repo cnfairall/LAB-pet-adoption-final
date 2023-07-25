@@ -264,7 +264,7 @@ for (const pet of array) {
     <div class="card-body">
       <h5 class="card-title">${pet.name}</h5>
       <img src=${pet.imageUrl} class="card-img-top" alt=${pet.name}>
-      <p class="card-text">${pet.color}</p>
+      <p class="italic card-text">${pet.color}</p>
       <p class="card-text">${pet.specialSkill}</p>
       <div class="parent" id="foot">
         <p class="${pet.type}" id="footer">${pet.type}</p>
@@ -304,7 +304,7 @@ const showForm = () => {
     <input type="text" class="form-control" id="specialSkill">
   </div>
   <div class="mb-3">
-    <label for="imageUrl" class="form-label">Upload Image</label>
+    <label for="imageUrl" class="form-label">Image URL</label>
     <input type="url" class="form-control" id="imageUrl">
   </div>
   <button type="submit" class="btn btn-success" id="form-submit">Submit</button>
