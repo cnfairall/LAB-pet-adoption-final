@@ -267,14 +267,13 @@ for (const pet of array) {
       <p class="card-text">${pet.color}</p>
       <p class="card-text">${pet.specialSkill}</p>
       <div class="parent" id="foot">
-        <p id="footer">${pet.type}</p>
+        <p class="${pet.type}" id="footer">${pet.type}</p>
         <img class="icon" id="delete-btn-pet--${pet.id}" src="trash-can-icon.jpg">
       </div>
     </div>
     
   </div>`
 };
-  
 renderToDom("#app", domString);
 };
 
