@@ -247,6 +247,7 @@ const form = document.querySelector("form");
 const formContainer = document.querySelector("#form-container");
 const showFormBtn = document.querySelector("#show-form-button");
 const closeBtn = document.querySelector("#close")
+const app = document.querySelector("#app")
 
 // functions //
 
@@ -265,22 +266,22 @@ for (const pet of array) {
       <img src=${pet.imageUrl} class="card-img-top" alt=${pet.name}>
       <p class="card-text">${pet.color}</p>
       <p class="card-text">${pet.specialSkill}</p>
-      <p id="footer">${pet.type}</p>
-
+      <div class="parent" id="foot">
+        <p id="footer">${pet.type}</p>
+        <img class="icon" id="delete-btn-pet--${pet.id}" src="trash-can-icon.jpg">
+      </div>
     </div>
+    
   </div>`
 };
   
 renderToDom("#app", domString);
 };
 
-cardsOnDom(pets);
-
 const filterAnimalByType = (type) => {
 const filteredPets = pets.filter((pet) => pet.type === type)
 cardsOnDom(filteredPets);
 };
-
 
 const showForm = () => {
   let domString = "";
@@ -330,12 +331,12 @@ const createPet = (e) => {
   form.reset();
   };
 
-  const closeForm = () => {
-    let domString = "";
-    renderToDom("#form-container", domString);
-  }
+const closeForm = () => {
+  let domString = "";
+  renderToDom("#form-container", domString);
+}
 
-  const eventListeners = () => {
+const eventListeners = () => {
 
   filterBtn.addEventListener('click', (e) => {
     switch (e.target.id) {
@@ -354,16 +355,25 @@ const createPet = (e) => {
       }
       });
      
-showFormBtn.addEventListener('click', () => {
-showForm()
-})
+  showFormBtn.addEventListener('click', () => {
+  showForm()
+  })
     
-form.addEventListener('submit', createPet)
+  form.addEventListener('submit', createPet)
 
-closeBtn.addEventListener("click", () => {
+  app.addEventListener('click', (e) => {
+    if (e.target.id.includes("delete")) {
+      const [, int] = e.target.id.split('--');
+      const index = pets.findIndex((pet) => pet.id === Number(int));
+      pets.splice(index, 1);
+      cardsOnDom(pets);
+    }
+  });
+
+  closeBtn.addEventListener("click", () => {
   closeForm()
-})
-  }
+  })
+}
 
 const startApp = () => {
   cardsOnDom(pets);
